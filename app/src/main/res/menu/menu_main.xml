@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <item
+        android:icon="@drawable/ic_back"
+        android:id="@+id/action_back"
+        android:title="Back"/>
+    
+    <item
+        android:icon="@drawable/ic_forward"
+        android:id="@+id/action_forward"
+        android:title="Forward"/>
+    
+    <item
+        android:icon="@drawable/ic_blocker"
+        android:id="@+id/action_blocker"
+        android:title="Blocker"/>
+    
+    <item
+        android:icon="@drawable/ic_download"
+        android:id="@+id/action_save"
+        android:title="Save page"/>
+    
+    <item
+        android:icon="@drawable/ic_downloads"
+        android:id="@+id/action_downloads"
+        android:title="Downloads"/>
+    
+    <item
+        android:icon="@drawable/ic_settings"
+        android:id="@+id/action_settings"
+        android:title="Settings"/>
+    
+</menu>
