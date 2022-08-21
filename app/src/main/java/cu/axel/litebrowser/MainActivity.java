@@ -188,12 +188,13 @@ public class MainActivity extends AppCompatActivity {
                             webView.goForward();
                             break;
                         case R.id.action_save:
-                            String path = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "Pages/" + Utils.strip(webView.getTitle()) + ".mhtml").getAbsolutePath();
-                            Toast.makeText(MainActivity.this, path, 5000).show();
+                            String path = new File(getExternalFilesDir(null).getAbsolutePath() + "Pages/", Utils.strip(webView.getTitle()) + ".mhtml").getAbsolutePath();
+                            
                             webView.saveWebArchive(path, false, new ValueCallback<String>(){
 
                                     @Override
                                     public void onReceiveValue(String p1) {
+                                        Toast.makeText(MainActivity.this, p1, 5000).show();
                                     }
 
                                 });
