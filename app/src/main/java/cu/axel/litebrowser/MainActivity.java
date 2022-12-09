@@ -39,6 +39,9 @@ import android.webkit.ValueCallback;
 import android.app.DownloadManager;
 import androidx.core.content.ContextCompat;
 import androidx.core.app.ActivityCompat;
+import android.widget.Switch;
+import android.widget.Spinner;
+import android.widget.ArrayAdapter;
 
 public class MainActivity extends AppCompatActivity {
     private LinearLayout webContainer, suggestionsPanel;
@@ -223,6 +226,8 @@ public class MainActivity extends AppCompatActivity {
         final CheckBox imChkbx = view.findViewById(R.id.block_img_chkbx);
         final CheckBox cssChkbx = view.findViewById(R.id.block_css_chkbx);
         final CheckBox externalChkbx = view.findViewById(R.id.block_external_chkbx);
+        Spinner blockSpinner = view.findViewById(R.id.block_profiles_switch);
+        blockSpinner.setAdapter(ArrayAdapter.createFromResource(this, R.array.block_profiles, android.R.layout.simple_spinner_dropdown_item));
 
         jsChkbx.setChecked(sp.getBoolean("block_js", false));
         imChkbx.setChecked(sp.getBoolean("block_img", false));

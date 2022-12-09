@@ -4,13 +4,15 @@
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:padding="10dp">
+	android:paddingStart="10dp"
+	android:paddingEnd="10dp">
 
 	<LinearLayout
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
 		android:orientation="horizontal"
-		android:gravity="center_vertical">
+		android:gravity="center_vertical"
+		android:layout_marginTop="10dp">
 
 		<TextView
 			android:layout_width="wrap_content"
@@ -22,7 +24,8 @@
 
 		<Spinner
 			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"/>
+			android:layout_width="wrap_content"
+			android:id="@+id/block_profiles_switch"/>
 
 	</LinearLayout>
 
@@ -37,19 +40,18 @@
 		android:layout_width="match_parent"
 		android:text="Block images"
 		android:id="@+id/block_img_chkbx"/>
-    
-    <CheckBox
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="Block CSS"
-        android:id="@+id/block_css_chkbx"/>
 
-    <CheckBox
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="Block external resources"
-        android:id="@+id/block_external_chkbx"/>
-    
+	<CheckBox
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="Block CSS"
+		android:id="@+id/block_css_chkbx"/>
+
+	<CheckBox
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:text="Block external resources"
+		android:id="@+id/block_external_chkbx"/>
 
 </LinearLayout>
 
