@@ -174,6 +174,33 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    @Override
+    public void onBackPressed() {
+
+        if (webView.canGoBack())
+            webView.goBack();
+        else
+        if (webViews.size() > 1)
+            showMTabsDialog();
+        else
+            super.onBackPressed();
+    }
+
+    private void showMTabsDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("Confirm exit");
+        dialog.setMessage("There are multiple tabs open. Do you want to exit ?");
+        dialog.setPositiveButton("Exit", new DialogInterface.OnClickListener(){
+
+                @Override
+                public void onClick(DialogInterface p1, int p2) {
+                    finish();
+                }
+            });
+       dialog.setNegativeButton("Cancel", null);
+       dialog.show();
+    }
+
     public void showMainMenu(View v) {
         PopupMenu menu = new PopupMenu(this, v);
         menu.inflate(R.menu.menu_main);
