@@ -53,11 +53,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
+
         if (ContextCompat.checkSelfPermission(this, "android.permission.WRITE_EXTERNAL_STORAGE") != 0) {
             ActivityCompat.requestPermissions(this, new String[]{"android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.WRITE_EXTERNAL_STORAGE"}, 0);
         }
-        
+
         webContainer = findViewById(R.id.web_container);
         suggestionsPanel = findViewById(R.id.suggestions_panel);
         webViews = new ArrayList<WebView>();
@@ -117,15 +117,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void newTab(String url, boolean inBackground) {
-        WebView webView = new WebView(this);
-        webView.setWebChromeClient(new MyWebChromeClient());
-        webView.setWebViewClient(new MyWebViewClient());
-        applyWebSettings(webView);
-        webViews.add(webView);
+        WebView wv = new WebView(this);
+        wv.setWebChromeClient(new MyWebChromeClient());
+        wv.setWebViewClient(new MyWebViewClient());
+        applyWebSettings(wv);
+        webViews.add(wv);
         if (!inBackground) {
-            this.webView = webView;
-            webContainer.removeAllViews();
-            webContainer.addView(webView);
+            switchToTab(webViews.size() - 1);
         }
         tabsBtn.setText(webViews.size() + "");
         if (!url.isEmpty()) {
@@ -140,22 +138,27 @@ public class MainActivity extends AppCompatActivity {
             webView.reload();
     }
 
+    private void switchToTab(int tab) {
+        WebView wv = webViews.get(tab);
+        webView = wv;
+        webContainer.removeAllViews();
+        webContainer.addView(webView);
+        urlField.setText(webView.getUrl());
+        if (webView.getProgress() > 0 && webView.getProgress() < 100) {
+            loadPb.setVisibility(View.VISIBLE);
+            loadPb.setProgress(webView.getProgress());
+        } else {
+            loadPb.setVisibility(View.GONE);
+        }
+    }
+
     public void showTabsDialog(View v) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setAdapter(new TabsAdapter(this, webViews), new DialogInterface.OnClickListener(){
 
                 @Override
                 public void onClick(DialogInterface p1, int p2) {
-                    WebView wv = webViews.get(p2);
-                    webView = wv;
-                    webContainer.removeAllViews();
-                    webContainer.addView(webView);
-                    if (webView.getProgress() > 0) {
-                        loadPb.setVisibility(View.VISIBLE);
-                        loadPb.setProgress(webView.getProgress());
-                    } else {
-                        loadPb.setVisibility(View.GONE);
-                    }
+                    switchToTab(p2);
                 }
             });
         dialog.setNeutralButton("New tab", new DialogInterface.OnClickListener(){
@@ -189,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case R.id.action_save:
                             String path = new File(getExternalFilesDir(null).getAbsolutePath() + "Pages/", Utils.strip(webView.getTitle()) + ".mhtml").getAbsolutePath();
-                            
+
                             webView.saveWebArchive(path, false, new ValueCallback<String>(){
 
                                     @Override
